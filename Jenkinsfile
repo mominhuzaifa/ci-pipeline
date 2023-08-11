@@ -67,7 +67,7 @@ pipeline{
                 script{
                     withDockerRegistry([credentialsId:'ecr:ap-south-1:ecr-credential', url:'https://150387322390.dkr.ecr.ap-south-1.amazonaws.com']){
                         sh 'docker build -t apache-docker-img .'        // build
-                        sh 'docker tag apache-docker-img:latest 150387322390.dkr.ecr.ap-south-1.amazonaws.com/apache-docker-img:latest'     // tag
+                        sh 'docker tag apache-docker-img:latest 150387322390.dkr.ecr.ap-south-1.amazonaws.com/apache-docker-img:apache2-img-v1.2'     // tag
                         sh 'docker push 150387322390.dkr.ecr.ap-south-1.amazonaws.com/apache-docker-img:latest'     // push
                     }
                 }
@@ -82,7 +82,7 @@ pipeline{
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'nexus-user-credentials', usernameVariable: 'jenkins-user', passwordVariable: 'nexus')]){
-                        sh 'docker login -u admin -p ${nexus} http://43.205.115.96:8081/repository/apache-docker-img/'  // login
+                        sh 'docker login -u admin -p ${nexus} http://43.205.115.96:8081/repository/docker-hosted-repo/'  // login
                         sh 'docker build -t apache-img .'   // build
                         sh 'docker tag apache-img 43.205.115.96:8085/apache-img:apche2-img-v1.1'    // tag
                         sh 'docker push 43.205.115.96:8085/apache-img'  // push
