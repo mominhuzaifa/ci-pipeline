@@ -39,7 +39,7 @@ pipeline{
                     sh 'mvn sonar:sonar'
                 } // withSonarQubeEnv ends
                 timeout(time:10, unit:'MINUTES'){
-                    waitForQualityGate abortForPipeline: true
+                    waitForQualityGate abortPipeline: true
                 } // timeout ends
             }
         } // sonarqube stage end
@@ -92,7 +92,7 @@ pipeline{
         }   // push to nexus ends
 
         // deleting docker image from jenkins
-        stage{
+        stage("deleting docker images from jenkins"){
             steps{
                 sh 'docker rmi -f $(docker images -q)'
             }
