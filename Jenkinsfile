@@ -85,7 +85,7 @@ pipeline{
                         sh 'docker login -u admin -p ${nexus} http://43.205.115.96:8085/repository/docker-hosted-repo/'  // login
                         sh 'docker build -t apache-img .'   // build
                         sh 'docker tag apache-img 43.205.115.96:8085/apache-img:apache2-img-v1.1'    // tag
-                        sh 'docker push 43.205.115.96:8085/apache-img'  // push
+                        sh 'docker push 43.205.115.96:8085/apache-img:apache2-img-v1.1'  // push
                     }
                 }
             }
